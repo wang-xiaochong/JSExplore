@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>连续赋值</title>
+</head>
+
+<body>
+    <script>
+        console.log("test")
+        var a = { n: 1 }        //声明变量a 指向{n:1}这个内容的地址       引用
+        var b = a               //声明变量b 指向a现在指向的地址
+        a.x = a = { n: 2 }
+
+        /* 
+        a.x = a = { n : 2 } ==> a.x = { n : 2} ; a = { n : 2}
+          js解析后结果是：
+            a.x = { n: 2 }      
+            //a指向的地址中增加内容,b的内容相应也改变，因为b 引用了a指向的地址
+            a = { n: 2 }
+            // a 指向新的内容地址，a的内容发生改变。而b的内容不改变，仍是a之前指向的地址。
+        */
+        // b = a    //重新将a的新地址赋值给b后，b的内容随之改变
+        console.log(a.x)    //undefined
+        console.log(b.x)    //{n:2}
+    </script>
+</body>
+
+</html>

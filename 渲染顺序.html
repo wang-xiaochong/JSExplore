@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>渲染顺序</title>
+</head>
+
+<body>
+</body>
+<script>
+    document.body.style = "background:blue";
+    console.log(1);
+    // 微任务 执行完主线程任务后执行微任务，执行完微任务后进行dom渲染 一次渲染
+    Promise.resolve().then(function () {
+        console.log(2);
+        document.body.style = "background:black";
+    });
+    console.log(3);
+    // 宏任务 执行完主线程任务后执行微任务，执行完微任务后dom渲染，之后在执行宏任务 二次渲染
+    setTimeout(function () {
+        console.log(4);
+        document.body.style = "background:yellow";
+    }, 0);
+// while(true);
+
+    /*
+        页面渲染过程：
+            控制台输出 1 3  2 渲染一次变成黑色，输出 4 二次渲染变成黄色
+    */
+
+    /*
+
+        JS引擎与GUI引擎互斥的原因
+            JS是可以操纵dom的，如果在修改这些元素属性同时渲染界面，那么渲染线程前后获得的元素数据可能就不一致了。为了防止渲染出现不可预期的结果，浏览器设置了GUI渲染线程与JS引擎互斥的关系，当JS引擎执行时GUI线程会被挂起，GUI更新则会被保存在一个队列中等到JS引擎线程空闲时立即执行  js计算完，才进行渲染
+        
+        渲染顺序：
+            1.先把Call Stack清空
+            2.然后执行当前的微任务
+            3.接下来dom渲染
+            4.宏任务执行
+
+    
+    */
+
+</script>
+
+</html>

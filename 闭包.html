@@ -1,0 +1,69 @@
+<!-- let var 区别；暂时性死区；for循环机制;setTimeout;JS引擎单线程运行 -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>闭包</title>
+</head>
+
+<body>
+    <script>
+        for (let i = 0; i < 3; i++) {
+            setTimeout(() =>
+                console.log(i)
+                , 1);
+        }
+        // 0 1 2
+
+        for (var i = 0; i < 3; i++) {
+            setTimeout(() =>
+                console.log(i)
+                , 1);
+        }
+        // 3 3 3
+
+        // f();
+        // console.log(a)
+        // function f() {
+        //     var a = 7
+        // }
+        //a在f()函数作用域范围内有效
+
+        /*
+        页面运行过程：
+            输出 0 1 2 3 3 3
+        */
+        
+        /*  for循环机制
+            for设置变量部分是父级作用域，循环体内部是一个单独的子作用域
+
+            setTimeout原理
+            在指定事件内，将任务放入事件队列，等待js引擎空闲后执行
+
+            let var 区别
+            1.访问范围 
+            ES6之前只有函数作用域和全局作用域，没有块级作用域，所以{}限制不了var声明变量的访问范围。而ES6新增的let，可以声明块级作用域的变量。js中的for循环比较特殊，每次循环都是一个全新的独立的块级作用域，用let声明的变量传入到for循环体作用域后，不会改变，不受外界影响。而var声明的变量则受外界影响  
+            2.变量提升
+            let声明的变量不存在变量提升，必须声明完后才能使用，不然会报捕获不到引用的错误。let声明变量之前，这些变量都是不可用的。在语法上叫做“暂时性死区”
+            暂时性死区：
+            var tmp = 521；
+            if(true) {
+                tmp = 'abc'；
+                let tmp;
+            }
+            上面的代码中，存在全局变量tmp，但是块级作用域内let又声明了一个局部变量tmp，导致后者绑定这个块级作用域，所以let声明变量前，对tmp赋值会报错
+            var声明的变量存在变量提升，即声明之前就可以使用。值为undefined
+            3.重复声明
+            let不允许在相同作用域内重复声明同一个变量
+
+        */
+
+
+    </script>
+
+</body>
+
+</html>
