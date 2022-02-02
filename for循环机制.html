@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>for循环机制</title>
+</head>
+<body>
+    
+</body>
+<script>
+    for(var x = 0;x < 3; x++) {
+        console.log(x)
+    }
+    // 0 1 2    计算和输出都在主线任务
+    for(let y = 0;y < 3; y++) {
+        console.log(y)
+    }
+    // 0 1 2    计算和输出都在主线任务
+
+
+
+    for(var i = 0; i < 3; i++) {
+        setTimeout(() => {
+             console.log(i)
+        }, 0);
+    }
+    // setTimeout为宏任务，主线程任务清空后，再执行该任务。计算在主线任务，输出在宏任务  主线程i计算完成后i最终变成3，var定义的变量受块级外部的影响，之后加到主线程后面的console.log(i)任务中的i为3，所以输出3次3    
+
+    for(let j = 0; j < 3; j++) {
+        setTimeout(() => {
+            console.log(j)
+        }, 0);
+    }
+    //计算在主线任务，输出在宏任务   虽然为宏任务，j主线计算完后也是3，但是是let声明的变量，其块级内部的变量不受外部影响，也是主线任务完成后再执行console.log(j)，但是j不受外部变量的影响。所以输出 0 1 2
+
+
+</script>
+</html>

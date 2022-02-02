@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>任务排序</title>
+</head>
+
+<body>
+    <!-- 主线任务完成后，回调任务先进先执行 -->
+
+</body>
+
+<script>
+    function load(src, resolve) {
+        let script = document.createElement("script");
+        script.src = src
+        script.onload = resolve
+        document.body.appendChild(script)
+    }
+
+    load("a.js", () => {
+        a();
+    })
+    // load执行后会交给文件加载模块去处理加载内容，加载完成后的回调函数对应的任务放到主线任务后，主线任务结束后再执行该任务
+
+    load("b.js", () => {
+        b();
+    })
+
+    // b的任务中依赖a中的任务，需要先加载完a任务后b任务才能正确加载，这样处理的话两个任务具有随机性，a和b哪个任务优先加载完后会进入队列。如果b先加载完，则依赖的a()无法找到，会报错。 所以必须先保证a任务加载完后再加载b任务。改进方法如下：
+
+    load("a.js", () => {
+        load("b.js", () => {
+            b();
+        })
+    })
+
+    //存在问题：存在嵌套问题，回调地狱。
+
+
+
+
+
+
+
+    // console.log("主线程")
+</script>
+
+</html>

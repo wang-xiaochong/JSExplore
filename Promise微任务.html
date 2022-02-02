@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise微任务</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+    // pending 进行中
+    // fulfilled 完成
+    // rejected 失败
+
+
+    console.log(
+
+        // 肯德基做饭中
+        new Promise((resolve, reject) => {
+            resolve("ok");          //成功后返回“ok”
+            // reject("failed");    //失败后返回“failed”
+        })
+            // 顾客做出收到应答后做出的处理
+            .then(
+                // 成功之后的处理
+                value => {
+                    console.log(value);
+
+                },
+                // 失败之后的处理
+                reason => {
+                    console.log(reason)
+
+                })
+
+            // 顾客做出收到应答后做出的处理
+            .then(
+                // 成功之后的处理
+                value => {
+                    console.log(value);
+
+                },
+                // 失败之后的处理
+                reason => {
+                    console.log(reason)
+
+                })
+
+
+    )
+</script>
+
+</html>
