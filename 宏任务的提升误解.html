@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宏任务的提升误解</title>
+</head>
+
+<body>
+    <!-- 宏任务并没有提升，而是微任务的产生需要先完成宏任务。所以先执行了宏任务，再执行了微任务，重点在于微任务产生的时间点 -->
+
+</body>
+<script>
+    console.log("主线同步任务1")
+    new Promise(resolve => {
+        setTimeout(() => {
+            resolve("事件队列异步微任务5")
+            console.log("事件队列异步宏任务4")
+        }, 0);
+        console.log("主线同步任务2")
+    }).then(value => {
+        console.log(value)
+    })
+    console.log("主线同步任务3")
+</script>
+
+</html>
