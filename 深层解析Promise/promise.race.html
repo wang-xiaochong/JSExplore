@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RACE</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //买作业本
+    function cutUp() {
+        console.log('挑作业本');
+        var p = new Promise(function (resolve, reject) {
+            //做一些异步操作 
+            setTimeout(function () {
+                console.log('挑好购买作业本');
+                resolve('新的作业本');
+                // reject("购买失败，钱不够了")
+            }, 1000);
+        })
+        // .catch(a=>console.log("reject:"+a))
+        return p;
+    }
+    //买笔 
+    function boil() {
+        console.log('挑笔芯');
+        var p = new Promise(function (resolve, reject) {
+            //做一些异步操作 
+            setTimeout(function () {
+                console.log('挑好购买笔芯');
+                resolve('新的笔芯');
+                console.log("并没有停止执行")
+            }, 2000);
+        });
+        return p;
+    }
+    Promise.race([cutUp(), boil()])
+        .then(function (results, reason) {
+            console.log("哈哈，我先买好啦");
+            console.log("优先购买完成：" + results);
+        })
+        .catch(err => console.log("err: " + err))
+
+    // 1.race接收到一个promise的正确处理结果后，不会再接受新的处理结果。但是在race中的promise都会执行完成，并不会终止。
+    // 2.race接收到一个promise的错误处理结果后。    如果之前原promise已经进行过处理，则会接收到undefined，之后就算有成功处理的结果也不会更新。并且依旧会继续执行下去；      如果之前promise没有进行处理，则会报uncaught错误，并且race的.then方法不会继续执行，转而执行.catch方法。 而其他promise继续执行    即race只接收一次最先完成的结果，无论对错，并且其他的promise仍会继续执行。
+
+    function requestImg() {
+        var p = new Promise(function (resolve, reject) {
+            var img = new Image();
+            img.onload = function () {
+                resolve(img);
+            }
+            img.src = 'xxxxxx';
+        }); return p;
+    }
+    //延时函数，用于给请求计时 
+    function timeout() {
+        var p = new Promise(function (resolve, reject) {
+            setTimeout(function () {
+                reject('图片请求超时');
+            }, 5000);
+        }); return p;
+    }
+    Promise.race([requestImg(), timeout()])
+        .then(function (results) {
+            console.log(results);
+        })
+        .catch(function (reason) {
+            console.log(reason);
+        });
+    //上面代码 requestImg 函数异步请求一张图片，timeout 函数是一个延时 5 秒的异步操作。我们将它们一起放在 race 中赛跑。
+    //如果 5 秒内图片请求成功那么便进入 then 方法，执行正常的流程。
+    //如果 5 秒钟图片还未成功返回，那么则进入 catch，报“图片请求超时”的信息。 
+
+
+
+</script>
+
+</html>

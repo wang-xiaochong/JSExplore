@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALL</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //买作业本
+    function cutUp() {
+        console.log('挑作业本');
+        var p = new Promise(function (resolve, reject) {
+            //做一些异步操作 
+            setTimeout(function () {
+                console.log('挑好购买作业本');
+                resolve('新的作业本');
+            }, 1000);
+        });
+        return p;
+    }
+    //买笔 
+    function boil() {
+        console.log('挑笔芯');
+        var p = new Promise(function (resolve, reject) {
+            //做一些异步操作 
+            setTimeout(function () {
+                console.log('挑好购买笔芯');
+                // resolve('新的笔芯');
+                reject("钱不够")
+            }, 1000);
+        })
+        // .catch(a=>console.log(a))
+        return p;
+    }
+
+    Promise.all([cutUp(), boil()])
+        .then(function (results) {
+            console.log("写作业的工具都买好了");
+            console.log(results);
+        })
+        .catch(reason => console.log("err: ", reason))
+
+    // all并行执行异步操作，在所有异步操作完成后才执行回调。
+    // 接收到错误处理后，如果该promise对该错误进行了处理，则all中会有undefined，如果promise没有处理，则会在all.catch中进行处理。如果都没有处理则会报uncaught错误。
+
+
+
+</script>
+
+</html>
