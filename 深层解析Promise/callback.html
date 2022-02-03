@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>传统回调</title>
+</head>
+
+<body>
+    <!-- 主线任务完成后，回调任务先进先执行 -->
+
+</body>
+
+<script>
+    function load(src, resolve) {
+        let script = document.createElement("script");
+        script.src = src
+        script.onload = resolve
+        document.body.appendChild(script)
+    }
+
+
+    // load("a.js", () => {
+    //     a();
+    // })
+    // // load执行后会交给文件加载模块去处理加载内容，加载完成后的回调函数对应的任务放到主线任务后，主线任务结束后再执行该任务
+
+    // load("b.js", () => {
+    //     b();
+    // })
+
+    // b的任务中依赖a中的任务，需要先加载完a任务后b任务才能正确加载，这样处理的话两个任务具有随机性，a和b哪个任务优先加载完后会进入队列。如果b先加载完，则依赖的a()无法找到，会报错。 所以必须先保证a任务加载完后再加载b任务。改进方法如下：
+
+
+    // load("a.js", () => {
+
+    //     load("b.js", () => {
+    //         b();
+    //     })
+    //     console.log(2)
+    // })
+    
+    //存在问题：存在嵌套问题，回调地狱。
+
+
+
+    /*
+    function doSomething(index) {
+        console.log(index)
+    }
+
+    function traditionalCallback() {
+        doSomething(1);
+        doSomething(2);
+        doSomething(3);
+        doSomething(4);
+        setTimeout(function request() {
+            doSomething(8);
+            doSomething(9);
+            doSomething(10);
+            // 调用其他模块加载     第三方库
+            // ajax("http:// some. url. 1", function response(text) {
+            //     if (text == "hello") {
+            //         handler();
+            //     } else if (text == "world") {
+            //         request();
+            //     }
+            // });
+            doSomething(11);
+            doSomething(12);
+            doSomething(13);
+        }, 2000);
+        doSomething(5);
+        doSomething(6);
+        doSomething(7);
+
+    }
+    traditionalCallback()
+
+    */
+
+    /*
+        传统回调函数存在的问题
+
+        1.可读性差
+        doSomething有些是同步的，有些是异步的，代码读起来非常的吃力，思考完执行顺序后，还需要记载脑子里
+        2.信任问题
+        调用第三方库后的回调自己无法控制，存在回调问题：过早过晚或没有回调或回调次数过多
+
+
+    */
+
+
+
+
+    // promise方式买笔写作业        
+    // promise中不给处理后的状态就不会执行.then方法，所以是异步变成了同步
+
+    // 买笔
+    function buy() {
+        console.log("开始买笔");
+        var p = new Promise(function (resolve, reject) {
+
+            setTimeout(function () {
+                console.log("买了笔芯");
+                resolve("数学作业");
+            }, 1000);
+
+            // setTimeout(function () {
+            //     console.log("买笔失败");
+            //     reject("钱不够");
+            // }, 1000);
+
+        });
+        return p;
+    }
+    //写作业 
+    function work(data) {
+        console.log("开始写作业：" + data);
+        var p = new Promise(function (resolve, reject) {
+            setTimeout(function () {
+                console.log("写完作业");
+                resolve("作业本");
+            }, 1000);
+        });
+        return p;
+    }
+    function out(data) {
+        console.log("开始上交：" + data);
+        var p = new Promise(function (resolve, reject) {
+            setTimeout(function () {
+                console.log("上交完毕");
+                resolve("得分：A");
+            }, 1000);
+        });
+        return p;
+    }
+
+
+
+    // //  不建议使用这种方式 
+    // buy()
+    //     .then(function (data) {
+    //         return work(data);
+    //     })
+    //     .then(function (data) {
+    //         return out(data);
+    //     })
+    //     .then(function (data) {
+    //         console.log(data);
+    //     });
+    // //推荐这种简化的写法 
+    // // 
+    //链式查询
+    buy()
+        .then(work)
+        .then(out)
+        .then(function (data) {
+            console.log(data);
+        })
+        .catch(reason=>{
+            console.log(reason)
+        });
+
+
+
+
+
+
+    // console.log("主线程")
+</script>
+
+</html>
