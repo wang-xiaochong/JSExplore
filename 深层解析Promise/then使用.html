@@ -12,24 +12,28 @@
 
 <script>
     let p1 = new Promise((resolve,reject)=>{
-        resolve("成功")
-        // reject("失败")
+        // resolve("成功")
+        reject("失败")
     })
     new Promise((resolve,reject)=>{
         resolve(p1)
     })
-    .then(resolve=>{
+    .then(
+        resolve=>{
         console.log("msg:  "+resolve)
     },reason=>{
         console.log("reason:  "+reason)
-    })
+    } 
+    )
     .catch(reason=>{
         console.log("error:  "+reason)
     })
 
     // resolve接收的数据如果是promise类型，需要根据该promise的返回结果进行选择触发.then中的resolve还是reason 或者是.catch
 
-    // promise中没表示事件处理状态时，.then不会执行
+    // promise中没表示事件处理状态时，.then不会执行 错误的
+
+    
 
 
     

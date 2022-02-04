@@ -41,8 +41,44 @@
     //     })
     //     console.log(2)
     // })
-    
+
     //存在问题：存在嵌套问题，回调地狱。
+
+
+    // promise方法：
+    function loadA() {
+        console.log("开始加载\"a.js\"")
+        let a = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(load("a.js"))
+            }, 3000);
+        })
+        return a
+    }
+    function loadB() {
+        console.log("开始加载\"b.js\"")
+        let b = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(load("b.js"))
+            }, 1000);
+        })
+        return b
+    }
+
+    loadA()
+        .then(loadB)
+        .then(
+            () => {
+                setTimeout(() => {
+                    b()
+                }, 1000);
+            })
+        .catch(reason => {
+            console.log("reason: "+reason)
+        });
+
+
+
 
 
 
@@ -101,8 +137,8 @@
     // 买笔
     function buy() {
         console.log("开始买笔");
-        var p = new Promise(function (resolve, reject) {
 
+        var p = new Promise(function (resolve, reject) {
             setTimeout(function () {
                 console.log("买了笔芯");
                 resolve("数学作业");
@@ -151,20 +187,45 @@
     //     .then(function (data) {
     //         console.log(data);
     //     });
-    // //推荐这种简化的写法 
-    // // 
+
+    // //推荐这种简化的写法
     //链式查询
-    buy()
-        .then(work)
-        .then(out)
-        .then(function (data) {
-            console.log(data);
-        })
-        .catch(reason=>{
-            console.log(reason)
-        });
+    // buy()
+    //     .then(work)
+    //     .then(out)
+    //     .then(function (data) {
+    //         console.log(data);
+    //     })
+    //     .catch(reason => {
+    //         console.log(reason)
+    //     });
 
 
+    // 如果promise未做出resolve或者reject处理，之后的.then会继续执行，只不过.then(a=>{},b=>{},语句3)中的携带处理结果a和b不会执行，语句3会执行。
+    // buy().then(console.log("===="))
+    // buy()
+    //     .then(
+    //         a => console.log("a"),
+    //         b => console.log("b"),
+    //         console.log("===="))
+
+
+
+
+    // new Promise((resolve, reject) => {
+    //     console.log("微任务开始执行")
+    //     setTimeout(() => {
+    //         // resolve("ok")
+    //         reject("failed")
+    //     }, 0);
+    // })
+    //     .then(
+    //         // console.log(".then回调开始执行"),
+    //         resolve => console.log("resolve: "+resolve),
+    //         reject => console.log("reject: "+reject),
+    //         console.log(".then回调执行结束")
+    //     )
+    // .then接收后面有接收处理结果的两个参数，语句块占用位置后就不会正确接收。如果正确处理接收结果，promise中未做出处理结果时，.then会执行之后的语句块。如果promise中做出了处理结果，则会先执行之后的语句块，之后再执行对应的resolve或者reject的处理
 
 
 
