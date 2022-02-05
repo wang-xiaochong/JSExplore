@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ajax封装异步请求</title>
+</head>
+
+<body>
+
+</body>
+<script src="ajax.js"></script>
+<script>
+    let url = "http://localhost:7001/js"
+
+    function getUser() {
+        let user = ajax(`${url}/userInfo?name=test`)
+        return user
+    }
+    function getLesson(data) {
+        let lesson = ajax(`${url}/lessonInfo?id=${data.data.ID}`)
+        return lesson
+    }
+
+    getUser()
+    .then(getLesson)
+    .then(
+        lesson => {
+        console.log(lesson)
+    }, reason => {
+        console.log(reason)
+    })
+
+
+</script>
+
+</html>

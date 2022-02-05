@@ -99,14 +99,12 @@
         })
             .then(
                 value => {
-
                     return class {
                         static then(resolve, reject) {
                             setTimeout(() => {
                             resolve("ok")
                             }, 1000);
                         }
-
                     }
                 },
                 reason => { }
