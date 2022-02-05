@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片加载</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    function loadImage(src) {
+        return new Promise((resolve, reject) => {
+            const image = new Image();
+            image.src = src
+            image.onload = () => {
+                resolve(image)
+            }
+            image.onerror = () => {
+                reject();
+            }
+            //添加到网页中
+            document.body.appendChild(image)
+        })
+    }
+    loadImage("../images/01.jpg")
+    .then(image => {
+        image.style.border = "solid 6px red"
+    }, reason => {
+        console.log(reason)
+    })
+</script>
+
+</html>
