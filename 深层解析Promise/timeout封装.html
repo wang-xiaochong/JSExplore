@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>timeout封装</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    function timeout(delay = 1000) {
+        return new Promise(resolve => setTimeout(resolve, delay))
+    }
+
+    timeout(2000)
+        .then(() => {
+            console.log("2秒后执行的操作")
+            return timeout(2000)
+        })
+        .then(() => {
+            console.log("又一个2秒")
+        })
+</script>
+
+</html>
