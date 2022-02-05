@@ -49,6 +49,7 @@
     // 1.race接收到一个promise的正确处理结果后，不会再接受新的处理结果。但是在race中的promise都会执行完成，并不会终止。
     // 2.race接收到一个promise的错误处理结果后。    如果之前原promise已经进行过处理，则会接收到undefined，之后就算有成功处理的结果也不会更新。并且依旧会继续执行下去；      如果之前promise没有进行处理，则会报uncaught错误，并且race的.then方法不会继续执行，转而执行.catch方法。 而其他promise继续执行    即race只接收一次最先完成的结果，无论对错，并且其他的promise仍会继续执行。
 
+
     function requestImg() {
         var p = new Promise(function (resolve, reject) {
             var img = new Image();
@@ -66,13 +67,13 @@
             }, 5000);
         }); return p;
     }
-    Promise.race([requestImg(), timeout()])
-        .then(function (results) {
-            console.log(results);
-        })
-        .catch(function (reason) {
-            console.log(reason);
-        });
+    // Promise.race([requestImg(), timeout()])
+    //     .then(function (results) {
+    //         console.log(results);
+    //     })
+    //     .catch(function (reason) {
+    //         console.log(reason);
+    //     });
     //上面代码 requestImg 函数异步请求一张图片，timeout 函数是一个延时 5 秒的异步操作。我们将它们一起放在 race 中赛跑。
     //如果 5 秒内图片请求成功那么便进入 then 方法，执行正常的流程。
     //如果 5 秒钟图片还未成功返回，那么则进入 catch，报“图片请求超时”的信息。 

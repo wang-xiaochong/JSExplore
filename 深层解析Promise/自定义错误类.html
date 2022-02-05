@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定义错误类</title>
+</head>
+
+<body>
+
+</body>
+<script src="ajax.js"></script>
+<script>
+
+    new Promise((resolve, reject) => {
+        return ajax("http://localhost:7001/js/userInfo1?name=test")
+            .then(
+                value => {
+                    console.log(value)
+                },
+                // reason => {
+                //     console.log("reason: "+reason)
+                // }
+            )
+            .catch(reason => {
+                // 根据不同的错误类型进行相应的处理
+                if (reason instanceof ParamError) {
+                    console.log("error: " + reason)
+                    return
+                }
+                if (reason instanceof HttpError) {
+                    alert("error: " + reason)
+                    return
+                }
+                console.log("error: "+reason)
+
+            })
+
+    })
+
+
+</script>
+
+</html>
