@@ -1,4 +1,7 @@
 function b() {
-    a();
+    setTimeout(() => {
+        a();
+    }, 2000);
+
     console.log("b.js")
 }

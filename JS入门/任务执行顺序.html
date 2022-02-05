@@ -1,29 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>任务执行顺序</title>
 </head>
+
 <body>
     <!-- 同步任务>微任务>宏任务 -->
-    
+
 </body>
 <script>
+    function myfunction() {
+        console.log("主线程同步任务2    myfunction")
+        return "主线程同步任务6     myfunction"
+    }
 
     setTimeout(() => {
         console.log("事件队列异步宏任务5")
     }, 0);
+
     console.log("主线程同步任务1")
-    new Promise(resolve=>{
-        resolve("事件队列异步微任务4")
-        console.log("主线程同步任务2")
-    }).then(resolve=>{
+
+    new Promise(resolve => {
+        resolve(myfunction())
+        // resolve("事件队列异步微任务4")
+        console.log("主线程同步任务3    promise处理时(做饭中)")
+        
+    }).then(resolve => {
         // 上面收到resolve()处理后加入到微任务中
-        console.log(resolve)
-    })
-    console.log("主线程同步任务3")
+        console.log(resolve + "   .then接收到正确处理结果(做饭后)")
+    }, reason => {
+        console.log(reason + "    .then接收到错误的处理结果(做饭后)")
+    },
+        console.log("主线程同步任务4    .then参数之后语句块3")
+    )
+    console.log("主线程同步任务5")
 
 </script>
+
 </html>

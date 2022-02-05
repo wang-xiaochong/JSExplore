@@ -47,19 +47,24 @@
 
     // promise方法：
     function loadA() {
-        console.log("开始加载\"a.js\"")
+        console.log("开始加载\"a.js\"   " + new Date().toLocaleString())
         let a = new Promise((resolve, reject) => {
             setTimeout(() => {
                 resolve(load("a.js"))
-            }, 3000);
+            }, 2000);
         })
         return a
     }
+    // function test(){
+    //     return "test"
+    // }
     function loadB() {
-        console.log("开始加载\"b.js\"")
+        console.log("开始加载\"b.js\"   " + new Date().toLocaleString())
         let b = new Promise((resolve, reject) => {
             setTimeout(() => {
+                // resolve(test())
                 resolve(load("b.js"))
+
             }, 1000);
         })
         return b
@@ -68,16 +73,22 @@
     loadA()
         .then(loadB)
         .then(
-            () => {
+            resolve => {
                 setTimeout(() => {
                     b()
-                }, 1000);
-            })
+                    console.log(new Date().toLocaleString())
+                }, 0);
+
+            },
+            // () => {
+            //     setTimeout(() => {
+            //         b()
+            //     }, 1000);
+            // }
+        )
         .catch(reason => {
-            console.log("reason: "+reason)
+            console.log("reason: " + reason)
         });
-
-
 
 
 
