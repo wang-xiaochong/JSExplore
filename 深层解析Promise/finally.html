@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+            background: red;
+            color: white;
+            display: none;
+        }
+    </style>
+    <div id="loading">
+        loading...
+    </div>
+    
+</body>
+<script src="ajax.js"></script>
+
+<script>
+    // 调用ajax2就会有异步加载动画
+    ajax2("http://localhost:7001/js/userInfo?name=test")
+    .then(value=>{
+        console.log(value)
+    })
+    .catch(error=>{
+        console.log("error: "+error)
+    })
+    .finally(()=>{
+        console.log("永远执行")
+        loading.style.display = "none"
+    })
+
+
+
+
+    // const promise = new Promise((resolve,reject)=>{
+    //     resolve("ok")
+    //     // reject("failed")
+    // })
+    // .then(value=>{
+    //     console.log("value: "+value)
+    // })
+    // .catch(error=>{
+    //     console.log("error: "+error)
+    // })
+    // .finally(()=>{
+    //     console.log("永远执行")
+    // })
+</script>
+</html>
