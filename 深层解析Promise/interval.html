@@ -50,7 +50,9 @@
 
     interval(100, (id, resolve) => {
         const div = document.querySelector("div")
+          // 得到div计算属性的左边界距离
         let left = parseInt(window.getComputedStyle(div).left)
+         // div的左边界加值向右移动
         div.style.left = left + 10 + "px";
         if (left >= 200) {
             clearInterval(id)
