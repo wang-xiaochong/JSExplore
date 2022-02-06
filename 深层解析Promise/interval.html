@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interval</title>
+</head>
+
+<body>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            background: yellowgreen;
+            position: absolute;
+        }
+    </style>
+    <div></div>
+
+</body>
+<script>
+    // interval封装
+    // function interval(delay = 1000, callback) {
+    //     return new Promise(resolve => {
+    //         let id = setInterval(() => {
+    //             callback(id, resolve)
+    //         }, delay)
+    //     })
+    // }
+    // interval(1000, (id, resolve) => {
+    //     console.log("doSomething1")
+    //     clearInterval(id)
+    //     resolve("ok")
+    // }).then(resolve => {
+    //     console.log(resolve)
+    // })
+
+
+
+    // interval 实际操作
+    function interval(delay = 1000, callback) {
+        return new Promise(resolve => {
+            let id = setInterval(() => {
+                callback(id, resolve)
+            }, delay)
+        })
+    }
+
+    interval(100, (id, resolve) => {
+        const div = document.querySelector("div")
+        let left = parseInt(window.getComputedStyle(div).left)
+        div.style.left = left + 10 + "px";
+        if (left >= 200) {
+            clearInterval(id)
+            resolve(div)
+        }
+    })
+        .then(div => {
+            // return 可进行后续的操作
+           return interval(100, (id, resolve) => {
+                let width = parseInt(window.getComputedStyle(div).width)
+                div.style.width = width - 10 + "px";
+                if (width <= 20) {
+                    clearInterval(id)
+                    resolve(div)
+                }
+            })
+        })
+        .then(div=>{
+            div.style.backgroundColor = "red"
+        })
+</script>
+
+</html>
