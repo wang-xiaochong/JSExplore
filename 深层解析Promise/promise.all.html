@@ -11,6 +11,7 @@
 <body>
 
 </body>
+<script src="ajax.js"></script>
 <script>
     //买作业本
     function cutUp() {
@@ -39,16 +40,55 @@
         return p;
     }
 
-    Promise.all([cutUp(), boil()])
-        .then(function (results) {
-            console.log("写作业的工具都买好了");
-            console.log(results);
-        })
-        .catch(reason => console.log("err: ", reason))
+    // Promise.all([cutUp(), boil()])
+    //     .then(function (results) {
+    //         console.log("写作业的工具都买好了");
+    //         console.log(results);
+    //     })
+    //     .catch(reason => console.log("err: ", reason))
 
     // all并行执行异步操作，在所有异步操作完成后才执行回调。
     // 接收到错误处理后，如果该promise对该错误进行了处理，则all中会有undefined，如果promise没有处理，则会在all.catch中进行处理。如果都没有处理则会报uncaught错误。
 
+
+
+    // promise.all延迟的相关处理
+
+    // promise.all根据需求封装成函数 函数版的promise.all访问后台同步进行的，后台延迟3秒时，请求两个数据需要6秒。搞不懂
+    function getUsers(names) {
+        console.log("函数开始执行时间:" + new Date().toLocaleString())
+
+        let promises = names.map(name => {
+            // console.log(new Date().toLocaleString())
+            return ajax(`http://localhost:7001/js/userInfo?name=${name}`)
+        })
+        return Promise.all(promises)
+    }
+
+    getUsers(["test", "test"]).then(users => {
+        console.log(users)
+        console.log("函数执行完毕时间:" + new Date().toLocaleString())
+    })
+
+
+
+    // 直接使用的promise.all,后台延迟3秒时，访问两个数据需要3秒。异步进行的。
+    // const promises = ["test", "test2"].map(name => {
+    //     return ajax(`http://localhost:7001/js/userInfo?name=${name}`)
+    // })
+    // setTimeout(() => {
+    //     console.log(promises)
+    // }, 5000);
+
+    // console.log(new Date().toLocaleString())
+    // Promise.all(promises)
+    //     .then(value => {
+    //         console.log(value)
+    //         console.log(new Date().toLocaleString())
+    //     })
+    //     .catch(err => {
+    //         console.log(err)
+    //     })
 
 
 </script>
