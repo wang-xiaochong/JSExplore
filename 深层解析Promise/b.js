@@ -1,7 +1,7 @@
 function b() {
-    setTimeout(() => {
-        a();
-    }, 2000);
-
+    // setTimeout(() => {
+    //     a();
+    // }, 2000);
+    a()
     console.log("b.js")
 }
