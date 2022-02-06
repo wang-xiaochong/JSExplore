@@ -13,32 +13,99 @@
 </body>
 <script src="ajax.js"></script>
 <script>
-    //买作业本
-    function cutUp() {
-        console.log('挑作业本');
-        var p = new Promise(function (resolve, reject) {
-            //做一些异步操作 
-            setTimeout(function () {
-                console.log('挑好购买作业本');
-                resolve('新的作业本');
-            }, 1000);
-        });
-        return p;
-    }
-    //买笔 
-    function boil() {
-        console.log('挑笔芯');
-        var p = new Promise(function (resolve, reject) {
-            //做一些异步操作 
-            setTimeout(function () {
-                console.log('挑好购买笔芯');
-                // resolve('新的笔芯');
-                reject("钱不够")
-            }, 1000);
+
+
+    // promise.all()中的参数是异步执行的。
+    // let p1 = new Promise((resolve, reject) => {
+    //     resolve("promise1 " + new Date().toLocaleString())
+    // })
+    // let p2 = new Promise((resolve, reject) => {
+    //     setTimeout(() => {
+    //         resolve("promise2 " + new Date().toLocaleString())
+    //     }, 4000);
+    // })
+    // let p3 = new Promise((resolve, reject) => {
+    //     setTimeout(() => {
+    //         resolve("promise3 " + new Date().toLocaleString())
+    //     }, 2000);
+    // })
+    // var ps = [p1, p2, p3]
+    // Promise.all(ps)
+    //     .then(value => {
+    //         console.log(value)
+    //     })
+
+
+    console.log("开始时间: " + new Date().toLocaleString())
+    let p1 = new Promise((resolve, reject) => {
+        resolve("promise1 " + new Date().toLocaleString())
+    })
+    let p2 = new Promise((resolve, reject) => {
+        let u2 = ajax(`http:localhost:7001/js/userInfo?name=test`,"u2").then(user => {
+            return new Promise(resolve => {
+                resolve(user)
+            })
         })
-        // .catch(a=>console.log(a))
-        return p;
-    }
+        resolve(u2)
+        // resolve("promise2 " + new Date().toLocaleString())
+
+    })
+    let p3 = new Promise((resolve, reject) => {
+        let u3 = ajax(`http:localhost:7001/js/userInfo?name=test`,"u3").then(user => {
+            return new Promise(resolve => {
+                resolve(user)
+            })
+        })
+        resolve(u3)
+    })
+
+
+    // var ps = [p1, p2, p3]
+    // p1.then(res=>console.log(new Date().toLocaleString()))
+    // p2.then(res=>console.log(new Date().toLocaleString()))
+    // p3.then(res=>console.log(new Date().toLocaleString()))
+
+    // Promise.all(ps)
+    //     .then(value => {
+    //         console.log(value)
+    //         console.log("结束时间: " + new Date().toLocaleString())
+
+    //     })
+
+
+
+
+
+
+
+
+
+    //买作业本
+    // function cutUp() {
+    //     console.log('挑作业本');
+    //     var p = new Promise(function (resolve, reject) {
+    //         //做一些异步操作 
+    //         setTimeout(function () {
+    //             console.log('挑好购买作业本');
+    //             resolve('新的作业本');
+    //         }, 1000);
+    //     });
+    //     return p;
+    // }
+    //买笔 
+    // function boil() {
+    //     console.log('挑笔芯');
+    //     var p = new Promise(function (resolve, reject) {
+    //         //做一些异步操作 
+    //         setTimeout(function () {
+    //             console.log('挑好购买笔芯');
+    //             // resolve('新的笔芯');
+    //             reject("钱不够")
+    //         }, 1000);
+    //     })
+    //     // .catch(a=>console.log(a))
+    //     return p;
+    // }
 
     // Promise.all([cutUp(), boil()])
     //     .then(function (results) {
@@ -54,37 +121,38 @@
 
     // promise.all延迟的相关处理
 
-    // promise.all根据需求封装成函数 函数版的promise.all访问后台同步进行的，后台延迟3秒时，请求两个数据需要6秒。搞不懂
-    function getUsers(names) {
-        console.log("函数开始执行时间:" + new Date().toLocaleString())
+    // promise.all根据需求封装成函数 函数版的promise.all访问后台同步进行的，后台延迟3秒时，请求两个数据需要6秒。
+    // function getUsers(names) {
+    //     console.log("函数开始执行时间:" + new Date().toLocaleString())
+    //     // console.log(names)
 
-        let promises = names.map(name => {
-            // console.log(new Date().toLocaleString())
-            return ajax(`http://localhost:7001/js/userInfo?name=${name}`)
-        })
-        return Promise.all(promises)
-    }
+    //     let promises = names.map(name => {
+    //         // console.log(new Date().toLocaleString())
+    //         return ajax(`http://localhost:7001/js/userInfo?name=${name}`)
+    //     })
+    //     return Promise.all(promises)
+    // }
 
-    getUsers(["test", "test"]).then(users => {
-        console.log(users)
-        console.log("函数执行完毕时间:" + new Date().toLocaleString())
-    })
+    // getUsers(["test", "test"]).then(users => {
+    //     console.log(users)
+    //     console.log("函数执行完毕时间:" + new Date().toLocaleString())
+    // })
 
 
 
-    // 直接使用的promise.all,后台延迟3秒时，访问两个数据需要3秒。异步进行的。
-    // const promises = ["test", "test2"].map(name => {
+    // 直接使用的promise.all
+    // const promises = ["test", "test"].map(name => {
     //     return ajax(`http://localhost:7001/js/userInfo?name=${name}`)
     // })
     // setTimeout(() => {
     //     console.log(promises)
     // }, 5000);
 
-    // console.log(new Date().toLocaleString())
+    // console.log("开始时间: "+new Date().toLocaleString())
     // Promise.all(promises)
     //     .then(value => {
     //         console.log(value)
-    //         console.log(new Date().toLocaleString())
+    //         console.log("结束时间: "+new Date().toLocaleString())
     //     })
     //     .catch(err => {
     //         console.log(err)
