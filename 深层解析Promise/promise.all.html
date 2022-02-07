@@ -37,32 +37,32 @@
 
 
     // ajax 请求url相同的情况下，会等上一次请求处理完成后再次发送新的请求
-    console.log("开始时间: " + new Date().toLocaleString())
-    let p1 = new Promise((resolve, reject) => {
-        resolve("promise1 " + new Date().toLocaleString())
-    })
-    let p2 = new Promise((resolve, reject) => {
+    // console.log("开始时间: " + new Date().toLocaleString())
+    // let p1 = new Promise((resolve, reject) => {
+    //     resolve("promise1 " + new Date().toLocaleString())
+    // })
+    // let p2 = new Promise((resolve, reject) => {
        
-        setTimeout(() => {
-         var u2 =    ajax(`http:127.0.0.1:7777/js/userInfo?name=test`,"u2").then(user => {
-            return new Promise(resolve => {
-                resolve(user)
-            })
-        }) 
-        }, 2000);
+    //     setTimeout(() => {
+    //      var u2 =    ajax(`http:127.0.0.1:7777/js/userInfo?name=test`,"u2").then(user => {
+    //         return new Promise(resolve => {
+    //             resolve(user)
+    //         })
+    //     }) 
+    //     }, 2000);
         
-        // resolve(u2)
-        // resolve("promise2 " + new Date().toLocaleString())
+    //     // resolve(u2)
+    //     // resolve("promise2 " + new Date().toLocaleString())
 
-    })
-    let p3 = new Promise((resolve, reject) => {
-        let u3 = ajax(`http:127.0.0.1:7777/js/userInfo?name=test`,"u3").then(user => {
-            return new Promise(resolve => {
-                resolve(user)
-            })
-        })
-        // resolve(u3)
-    })
+    // })
+    // let p3 = new Promise((resolve, reject) => {
+    //     let u3 = ajax(`http:127.0.0.1:7777/js/userInfo?name=test`,"u3").then(user => {
+    //         return new Promise(resolve => {
+    //             resolve(user)
+    //         })
+    //     })
+    //     // resolve(u3)
+    // })
 
 
     // var ps = [p1, p2, p3]
@@ -126,21 +126,21 @@
 
 
     // promise.all根据需求封装成函数 函数版的promise.all访问后台
-    // function getUsers(names) {
-    //     console.log("函数开始执行时间:" + new Date().toLocaleString())
-    //     // console.log(names)
+    function getUsers(names) {
+        console.log("函数开始执行时间:" + new Date().toLocaleString())
+        // console.log(names)
 
-    //     let promises = names.map(name => {
-    //         // console.log(new Date().toLocaleString())
-    //         return ajax(`http://localhost:7001/js/userInfo?name=${name}`)
-    //     })
-    //     return Promise.all(promises)
-    // }
+        let promises = names.map(name => {
+            // console.log(new Date().toLocaleString())
+            return ajax(`http://localhost:7777/js/userInfo?name=${name}`)
+        })
+        return Promise.all(promises)
+    }
 
-    // getUsers(["test", "test"]).then(users => {
-    //     console.log(users)
-    //     console.log("函数执行完毕时间:" + new Date().toLocaleString())
-    // })
+    getUsers(["test", "test2"]).then(users => {
+        console.log(users)
+        console.log("函数执行完毕时间:" + new Date().toLocaleString())
+    })
 
 
 

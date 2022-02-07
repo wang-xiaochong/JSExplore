@@ -14,7 +14,7 @@ class HttpError extends Error {
 }
 
 
-function ajax(url,info) {
+function ajax(url) {
     
     return new Promise((resolve, reject) => {
         
@@ -24,9 +24,9 @@ function ajax(url,info) {
         let xhr = new XMLHttpRequest();
         xhr.open("GET", url);
         xhr.send();
-        console.log(new Date().toLocaleString()+"   "+info)
+        // console.log(new Date().toLocaleString()+"   "+info)
         xhr.onload = function () {
-            console.log(new Date().toLocaleString()+"   "+info)
+            // console.log(new Date().toLocaleString()+"   "+info)
             if (this.status == 200) {
                 resolve(JSON.parse(this.response))
             } else if (this.status == 404) {
