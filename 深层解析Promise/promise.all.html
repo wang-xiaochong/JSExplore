@@ -36,27 +36,32 @@
     //     })
 
 
+    // ajax 请求url相同的情况下，会等上一次请求处理完成后再次发送新的请求
     console.log("开始时间: " + new Date().toLocaleString())
     let p1 = new Promise((resolve, reject) => {
         resolve("promise1 " + new Date().toLocaleString())
     })
     let p2 = new Promise((resolve, reject) => {
-        let u2 = ajax(`http:localhost:7001/js/userInfo?name=test`,"u2").then(user => {
+       
+        setTimeout(() => {
+         var u2 =    ajax(`http:127.0.0.1:7777/js/userInfo?name=test`,"u2").then(user => {
             return new Promise(resolve => {
                 resolve(user)
             })
-        })
-        resolve(u2)
+        }) 
+        }, 2000);
+        
+        // resolve(u2)
         // resolve("promise2 " + new Date().toLocaleString())
 
     })
     let p3 = new Promise((resolve, reject) => {
-        let u3 = ajax(`http:localhost:7001/js/userInfo?name=test`,"u3").then(user => {
+        let u3 = ajax(`http:127.0.0.1:7777/js/userInfo?name=test`,"u3").then(user => {
             return new Promise(resolve => {
                 resolve(user)
             })
         })
-        resolve(u3)
+        // resolve(u3)
     })
 
 
