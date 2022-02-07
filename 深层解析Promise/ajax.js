@@ -15,9 +15,9 @@ class HttpError extends Error {
 
 
 function ajax(url) {
-    
+
     return new Promise((resolve, reject) => {
-        
+
         if (!/^http/.test(url)) {
             throw new ParamError("请求地址格式错误")
         }
@@ -75,5 +75,41 @@ function ajax2(url) {
             reject(this)
         }
     })
+}
+
+
+// Promise.race 超时处理请求封装
+function ajaxDelay(url, delay = 2000) {
+    let p1 = new Promise((resolve, reject) => {
+        if (!/^http/.test(url)) {
+            throw new ParamError("请求地址格式错误")
+        }
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", url);
+        xhr.send();
+        xhr.onload = function () {
+            if (this.status == 200) {
+                resolve(JSON.parse(this.response))
+            } else if (this.status == 404) {
+                reject(new HttpError("访问路径找不到"))
+            }
+            else {
+                console.log(this.status)
+                reject("加载失败")
+            }
+        }
+        xhr.onerror = function () {
+            reject(this)
+        }
+
+    })
+    let p2 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            reject("请求超时")
+        }, delay);
+    })
+
+    return Promise.race([p1, p2])
 
 }
+
