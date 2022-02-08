@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script src="ajax.js"></script>
+
+<script>
+    // async 的使用
+    // 函数前加上 async 后相当于一个promise，但是只有处理的resolve状态
+    // async function test(){
+    //     // reject("failed")
+    //     return "ok"
+    // }
+    // console.log(test())
+    // test().then(resolve=>console.log(resolve))
+
+
+
+    // await的使用
+    // async function test() {
+
+    //     let await1 = await new Promise(resolve => {
+    //         console.log(new Date().toLocaleString())
+    //         setTimeout(() => {
+    //             resolve("await1")
+    //         }, 2000);
+    //     })
+    //     let await2 = await new Promise(resolve => {
+    //         console.log(new Date().toLocaleString())
+    //         setTimeout(() => {
+    //             resolve(await1 + "  await2")
+    //         }, 2000);
+    //     })
+
+    //     // 相当于test内层中有一个promise，然后resolve(await2)
+    //     return await2
+    // }
+    // console.log(test())
+    // test().then(resolve => {
+    //     console.log(resolve)
+    //     console.log(new Date().toLocaleString())
+    // })
+
+
+
+
+    // async function test() {
+    //     console.log("async")
+    // }
+    // test()
+    // setTimeout(() => {
+    //     console.log("timeout")
+    // }, 0);
+
+    // new Promise(resolve => {
+    //     console.log("promise")
+    //     resolve()
+    // })
+    //     .then(res => {
+    //         console.log("promise.then")
+    //     })
+    // console.log("main")
+
+    // async await 拿取用户数据并获得课程
+    // await 相当于promise.resolve().then() 
+    // let user = await f() ==> let user; f().then(res=>user = res)
+
+    async function getLesson(name) {
+        let url = `http://localhost:7777/js`
+        let user = await ajax(url + `/userInfo?name=${name}`)
+        let lesson = await ajax(url + `/lessonInfo?id=${user.data.ID}`)
+        console.log(lesson)
+    }
+    getLesson("test")
+
+
+
+</script>
+
+</html>
