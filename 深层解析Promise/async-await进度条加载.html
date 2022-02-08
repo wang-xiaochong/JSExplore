@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>进度条加载</title>
+</head>
+
+<body>
+    <div id="loading" style="height: 20px;background-color: yellowgreen; position: absolute;">
+
+    </div>
+
+</body>
+<script src="ajax.js"></script>
+<script>
+    // async await 动画加载进度条
+    async function query(names) {
+        let length = names.length
+        for (let i = 0; i < length; i++) {
+            let user = await ajax(`http://localhost:7777/js/userInfo?name=${names[i]}`)
+            let progress = (i + 1) / length * 100
+            // console.log(progress.toFixed(2))
+            loading.innerHTML = progress.toFixed(2) + "%"
+            loading.style.width = progress * 10 + "px"
+        }
+    }
+    let names = ["test", "test", "test"]
+    query(names)
+
+
+</script>
+
+</html>
