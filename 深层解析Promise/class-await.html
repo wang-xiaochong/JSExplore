@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>class-await</title>
+</head>
+
+<body>
+
+</body>
+<script src="ajax.js"></script>
+<script>
+    class User {
+        constructor(name) {
+            this.name = name
+        }
+        then(resolve, reject) {
+            let user = ajax(`http://localhost:7777/js/userInfo?name=${this.name}`)
+            resolve(user)
+        }
+        async getUser(name) {
+            let user = await ajax(`http://localhost:7777/js/userInfo?name=${name}`)
+            user.data.Name += "+后缀"
+            return user
+        }
+    }
+
+    async function get() {
+        let user = await new User("test")
+        console.log(user)
+    }
+    // get()
+    new User().getUser("test").then(user => {
+        console.log(user)
+    })
+</script>
+
+</html>
