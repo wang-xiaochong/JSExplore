@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>promise队列</title>
+</head>
+
+<body>
+
+</body>
+<script>
+
+    // 1秒后一次性输出0~5
+    // for (let i = 0; i < 5; i++) {
+    //     setTimeout(() => {
+    //         console.log(i)
+    //     }, 1000);
+    // }
+
+    // 队列 每隔一秒输出一个值 p和then的自身调用
+    function queue(num) {
+        let p = Promise.resolve()
+        num.map(
+            v => {
+                console.log(new Date().toLocaleString())
+                p = p.then(_ => {
+                    return new Promise(resolve => {
+                        setTimeout(() => {
+                            console.log(v)
+                            console.log(new Date().toLocaleString())
+                            resolve()
+                        }, 2000);
+                    })
+                })
+
+            }
+        )
+    }
+    queue([1, 2, 3])
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+</html>
