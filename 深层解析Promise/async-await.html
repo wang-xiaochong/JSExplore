@@ -74,13 +74,31 @@
     // await 相当于promise.resolve().then() 
     // let user = await f() ==> let user; f().then(res=>user = res)
 
-    async function getLesson(name) {
-        let url = `http://localhost:7777/js`
-        let user = await ajax(url + `/userInfo?name=${name}`)
-        let lesson = await ajax(url + `/lessonInfo?id=${user.data.ID}`)
-        console.log(lesson)
+    // async function getLesson(name) {
+    //     let url = `http://localhost:7777/js`
+    //     let user = await ajax(url + `/userInfo?name=${name}`)
+    //     let lesson = await ajax(url + `/lessonInfo?id=${user.data.ID}`)
+    //     console.log(lesson)
+    // }
+    // getLesson("test")
+
+    // async await 延时函数的封装
+    async function sleep(delay = 2000) {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve()
+            }, delay);
+        })
     }
-    getLesson("test")
+    let nums = [1, 2, 3, 4]
+    async function show(nums) {
+        for (let num of nums) {
+            // 异步变同步，在这暂停
+            await sleep()
+            console.log(num + "  " + new Date().toLocaleString())
+        }
+    }
+    show(nums)
 
 
 
