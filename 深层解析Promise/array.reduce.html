@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reduce</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+    // 数组reduce promise queue 队列任务
+    // array.reduce((前一状态，数组值，数组坐标，数组)=>{},默认值)
+
+    function queue(nums) {
+        nums.reduce((promise, n) => {
+            return promise.then(_ => {
+                return new Promise(resolve => {
+                    setTimeout(() => {
+                        console.log(n)
+                        resolve()
+                    }, 2000);
+                })
+            })
+
+        }, Promise.resolve())
+
+    }
+    queue([1, 2, 3])
+
+
+
+    // array.reduce:
+    // [1, 2, 3].reduce((pre, value, index, arr) => {
+    //     console.log(pre, value, index, arr)
+    //     return value
+    // }, 0)
+
+
+
+
+
+</script>
+
+</html>
