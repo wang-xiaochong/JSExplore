@@ -15,9 +15,7 @@ class HttpError extends Error {
 
 
 function ajax(url) {
-
     return new Promise((resolve, reject) => {
-
         if (!/^http/.test(url)) {
             throw new ParamError("请求地址格式错误")
         }

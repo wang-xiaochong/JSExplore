@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>队列渲染</title>
+</head>
+
+<body>
+
+</body>
+<script src="ajax.js"></script>
+<script>
+    
+    class User {
+        render(names) {
+            names.reduce((promise, value) => {
+                return promise.then(resolve => {
+                    return ajax(`http://localhost:7777/js/userInfo?name=${value}`)
+                }).then(user => {
+                    // 拿到数据后立刻进行渲染
+                    this.view(user)
+                })
+            }, Promise.resolve())
+        }
+
+        view(user) {
+            let h2 = document.createElement("h2")
+            h2.innerHTML = user.data.Name
+            document.body.appendChild(h2)
+            console.log(user)
+        }
+    }
+    new User().render(["test", "test2"])
+
+</script>
+
+</html>
