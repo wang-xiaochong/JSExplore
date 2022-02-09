@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>连续赋值2</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 作用域链 连续赋值
+    (function () {
+        var a = (b = 5)  // ==> var a = 5; b = 5 ==> var a = 5; window.b = 5
+    })()
+
+
+    setTimeout(() => {
+        console.log(b)
+        console.log(a)
+    }, 0);
+</script>
+
+</html>
