@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>参数传递</title>
+</head>
+
+<body>
+
+</body>
+<script>
+
+    // 函数内作用域改变不了外部的值 值传递
+    // var a = 10
+    // function add(num){
+    //     num += 10
+    // }
+    // add(a)
+    // console.log(a)
+
+    // 引用传递改变外部的值  引用传递
+    // var b = { Name: "xiaoshuai" }
+    // function change(data) {
+    //     data.Name = "xiaodong"
+    // }
+    // change(b)
+    // console.log(b)
+
+    // 
+
+
+    // 携带参数不赋予默认值时，为引用传递 内部的arguments传递的是引用类型，arguments内部更改时，会影响该函数内部的元素
+    // function test1(a, b, c) {
+    //     arguments[2] = arguments[0]
+    //     return a + b + c
+    // }
+    // let result = test1(1, 2, 3)
+    // console.log(result) //4
+
+    
+    // 携带参数赋予默认值并且是引用类型时，为引用传递 内部的arguments传递的是引用类型，arguments内部更改时，会影响该函数内部的元素
+    // function test2(a, b, c = {}) {
+    //     arguments[2].value = arguments[0]
+    //     return a + b + c.value
+    // }
+    // let result = test2(1, 2, { value: 3 })
+    // console.log(result)
+
+
+
+    // 携带参数赋予默认值并且为基本类型时，为值传递 内部的arguments传递的是值类型，arguments内部更改时，并不会影响该函数内部的元素
+    function test(a, b, c = 9) {
+        arguments[2] = arguments[0]
+        return a + b + c
+    }
+    let result = test(1, 2, 3)
+    console.log(result) //6
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // function side(arr) {
+    //     // console.log(arr)
+    //     arr[0] = arr[2]
+    //     // console.log(arr)
+    // }
+
+    // function test(a, b, c) {
+    //     // arguments 当前函数携带的形参
+    //     c = 10;
+    //     // console.log(arguments)
+    //     side(arguments)
+
+    //     console.log(arguments)
+    //     console.log(a, b, c)
+    //     return a + b + c
+    // }
+    // setTimeout(() => {
+    //     console.log(test(1, 1, 5))
+    // }, 100);
+
+</script>
+
+</html>
