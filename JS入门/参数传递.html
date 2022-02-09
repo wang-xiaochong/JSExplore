@@ -40,7 +40,7 @@
     // let result = test1(1, 2, 3)
     // console.log(result) //4
 
-    
+
     // 携带参数赋予默认值并且是引用类型时，为引用传递 内部的arguments传递的是引用类型，arguments内部更改时，会影响该函数内部的元素
     // function test2(a, b, c = {}) {
     //     arguments[2].value = arguments[0]
@@ -52,13 +52,20 @@
 
 
     // 携带参数赋予默认值并且为基本类型时，为值传递 内部的arguments传递的是值类型，arguments内部更改时，并不会影响该函数内部的元素
-    function test(a, b, c = 9) {
-        arguments[2] = arguments[0]
-        return a + b + c
-    }
-    let result = test(1, 2, 3)
-    console.log(result) //6
+    // function test(a, b, c = 9) {
+    //     arguments[2] = arguments[0]
+    //     return a + b + c
+    // }
+    // let result = test(1, 2, 3)
+    // console.log(result) //6
 
+    // 当参数被赋值对应类型后，未被赋值的则为接收到的类型。arguments只能改变引用类型的变量
+    function test(a = 3, b, c = {}) {
+        arguments[1] = arguments[2].value
+        return a + b + c.value
+    }
+    let result = test(1, 2, { value: 3 })
+    console.log(result) //6
 
 
 
