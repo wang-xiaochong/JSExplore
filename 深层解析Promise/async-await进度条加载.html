@@ -20,7 +20,7 @@
     async function query(names) {
         let length = names.length
         for (let i = 0; i < length; i++) {
-            let user = await ajax(`http://localhost:7777/js/userInfo?name=${names[i]}`)
+            let user = await ajax(`http://82.156.109.119:7777/js/userInfo?name=${names[i]}`)
             let progress = (i + 1) / length * 100
             // console.log(progress.toFixed(2))
             loading.innerHTML = progress.toFixed(2) + "%"
