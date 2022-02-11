@@ -45,7 +45,7 @@
     // 测试2
     // console.log(obj)
     // t.sayHi.call(obj, "arg.say") //this先指向了obj,sayHi中this声明的属性都重新声明给了obj，并对其相应赋值  改变了外部的obj的内容
-    
+
     // 测试3
     /*
     ！！！赋值过程：
@@ -53,12 +53,54 @@
     2.fn中属性重复值进行覆盖,未重复进行添加  
     3.携带的参数进行最后的赋值 赋值完成
     */
-    console.log(obj)
-    test.call(obj,"arg.name")
-    console.log(obj)
+
+    // console.log(obj)
+    // test.call(obj,"arg.name")
+    // console.log(obj)
 
     /*-----------------------call bind apply 比较-------------------------------*/
-    
+
+    function fn(name, age, sex) {
+        this.name = name
+        this.age = age
+        this.sex = sex
+    }
+    fn.prototype.print = function (name, age, sex) {
+        this.name = name
+        this.age = age
+        this.sex = sex
+        console.log(this.name, this.age, this.sex)
+    }
+
+    let f1 = new fn("fn.name", "fn.age", "fn.sex")
+
+    let fnObj = {
+        name: "obj.name",
+        age: "obj.age",
+        sex: "obj.sex",
+    }
+
+
+    // f1.print()
+    // 不携带参数没有区别
+    // f1.print.call(fnObj)
+    // f1.print.apply(fnObj)
+    // f1.print.bind(fnObj)()
+
+    f1.print.call(fnObj, "arg.name", "arg.age", "arg.sex")  //正常
+    // f1.print.apply(fnObj,"arg.name","arg.age","arg.sex") //报错
+    // f1.print.bind(fnObj,"arg.name","arg.age","arg.sex")() //正常
+
+    // f1.print.call(fnObj, ["arg.name", "arg.age", "arg.sex"])  // 数组 undefined undefined
+    // f1.print.apply(fnObj, ["arg.name", "arg.age", "arg.sex"]) //正常
+    // f1.print.bind(fnObj, ["arg.name", "arg.age", "arg.sex"])() // 数组 undefined undefined
+
+    /*  总结：
+            第一个参数都是this的重定向 对于之后的参数
+            call和bind 接收的参数都是逗号分割，apply接收的参数时一个数组
+            call和apply 立刻执行,无返回值。apply返回一个可执行函数，手动执行
+    */
+
 
 
 
