@@ -52,19 +52,48 @@
 
 
     // JS中函数也是对象 对象则有方法， apply 和 call 就是函数对象的方法 可以切换上下文的环境 即改变函数内部的this绑定的属性
+    // var person1 = {
+    //     firstName: "person1 first",
+    //     lastName: "person1 lase",
+    //     fullName: function () {
+
+    //         return this.firstName + " " + this.lastName;
+    //     }
+    // }
+    // var person2 = {
+    //     firstName: "John",
+    //     lastName: "Doe",
+    // }
+    // console.log(person1.fullName.call(person2))  // 返回 "John Doe"
+
     var person1 = {
         firstName: "person1 first",
         lastName: "person1 lase",
-        fullName: function () {
+        p: {
+            name: "p",
+            wait() {
+                // 箭头函数取上一级作用域
+                setTimeout(() => {
+                    console.log(this)
+                }, 0);
+            }
+        },
 
-            return this.firstName + " " + this.lastName;
-        }
+
+
     }
     var person2 = {
         firstName: "John",
         lastName: "Doe",
+        wait() {
+            // 主线上的 window
+            setTimeout(function () {
+                console.log(this)
+            }, 0);
+        }
     }
-    console.log(person1.fullName.call(person2))  // 返回 "John Doe"
+    person1.p.wait()  //person1对象
+    person2.wait()  //window
 
 
 
