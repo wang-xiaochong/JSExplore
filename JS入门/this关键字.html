@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>this关键字</title>
+</head>
+
+<body>
+
+    <!-- html事件句柄中，this指向了接收事件的HTML元素 -->
+    <!-- <button onclick="this.style.display='none'">点我就消失</button> -->
+
+
+
+</body>
+<script>
+    // 在对象方法中，this指向调用它所在方法的对象 this表示person对象
+    // var person = {
+    //     firstName: "John",
+    //     lastName: "Doe",
+    //     id: 5566,
+    //     fullName: function () {
+    //         return this.firstName + " " + this.lastName;
+    //     },
+    //     mythis(){
+    //         return this
+    //     }
+    // }
+    // console.log(person.fullName())
+    // console.log(person.mythis())
+
+
+    // 单独使用this，则它指向全局Global对象 浏览器中window为全局对象
+    // var x = this
+    // console.log(x)
+
+    // 在函数中，函数的所属者默认绑定到this上 浏览器中 window==this就是全局对象
+    // function mythis(){
+    //     return this
+    // }
+    // console.log(mythis())
+
+    // 严格模式下函数是绑定到全局this上,使用this.mythis()可以访问的到，但是函数内部的this没有直接对象，所以mythis()返回undefined
+    // "use strict"
+    // function mythis(){
+    //     return this
+    // }
+    // console.log(mythis())
+
+
+    // JS中函数也是对象 对象则有方法， apply 和 call 就是函数对象的方法 可以切换上下文的环境 即改变函数内部的this绑定的属性
+    var person1 = {
+        firstName: "person1 first",
+        lastName: "person1 lase",
+        fullName: function () {
+
+            return this.firstName + " " + this.lastName;
+        }
+    }
+    var person2 = {
+        firstName: "John",
+        lastName: "Doe",
+    }
+    console.log(person1.fullName.call(person2))  // 返回 "John Doe"
+
+
+
+
+
+
+
+
+</script>
+
+</html>
