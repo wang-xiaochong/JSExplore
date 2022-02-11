@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>闭包</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 闭包：作用域应用的特殊情况 1.函数作为参数被传递 2.函数作为返回值被返回
+    
+    // 函数作为返回值
+    function create(){
+        var a = 100
+        return function(){
+            console.log(a)
+        }
+    }
+    let fn = create()
+    var a = 200
+    fn()        //100
+
+
+    // 函数作为参数
+    // function print(fn) {
+    //     var a = 200
+    //     fn()
+    // }
+    // var a = 100
+    // function fn() {
+    //     console.log(a)
+    // }
+    // print(fn)       //100
+
+    // 所有自由变量的查找，是在函数定义的地方，向上级的作用域查找，而不是在执行的地方！！！
+
+
+
+
+
+
+
+
+
+
+</script>
+
+</html>
