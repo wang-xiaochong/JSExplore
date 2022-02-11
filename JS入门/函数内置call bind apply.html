@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>call bind apply</title>
+</head>
+
+<body>
+
+</body>
+<script>
+
+    // 自定义函数test
+    function test(name) {
+        // console.log(this)
+        this.name = name
+        this.sex = "test.sex"
+        this.height = "test.height"
+    }
+
+    // test可视为对象 自定义对象内置方法sayHi()
+    test.prototype.sayHi = function (say) {
+        // console.log(this)
+        this.say = say
+        console.log(this.name)
+        console.log(this.say)
+    }
+    // 实例化一个test对象
+    var t = new test("test.name")
+    // 自定义一个对象，用于改变this指向时的参数
+    let obj = {
+        name: "obj.name",
+        sex: "obj.sex",
+        say: "obj.say",
+        age: "obj.age"
+    }
+
+    // 测试1
+    // t.sayHi()                // test.name
+    // t.sayHi.call(obj)        // obj.name     sayHi中的this指向发生改变，指向obj
+
+    // 测试2
+    // console.log(obj)
+    // t.sayHi.call(obj, "arg.say") //this先指向了obj,sayHi中this声明的属性都重新声明给了obj，并对其相应赋值  改变了外部的obj的内容
+    
+    // 测试3
+    /*
+    ！！！赋值过程：
+    1.先是obj自带的属性以及值 
+    2.fn中属性重复值进行覆盖,未重复进行添加  
+    3.携带的参数进行最后的赋值 赋值完成
+    */
+    console.log(obj)
+    test.call(obj,"arg.name")
+    console.log(obj)
+
+    /*-----------------------call bind apply 比较-------------------------------*/
+    
+
+
+
+</script>
+
+</html>
