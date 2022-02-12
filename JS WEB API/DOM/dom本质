@@ -1,0 +1,13 @@
+
+DOM:  Document Object Model 文档对象模型
+
+1. DOM属于哪一种数据结构    
+2. DOM操作的常用API
+3. attribute 和 property的区别
+4. 一次性插入多个节点,考虑性能
+
+
+DOM本质 : 浏览器内存中已经初始化好的一棵树(解析的HTML)
+HTML : 一个文件而已
+XML(未规定标签)  HTML(标签规定好了)
+
