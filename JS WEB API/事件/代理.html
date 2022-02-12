@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件代理</title>
+</head>
+
+<body>
+    <style>
+        #div1 {
+            border: 1px solid wheat;
+        }
+    </style>
+
+    <div id="div1">
+        <a href="#">a1</a> <br>
+        <a href="#">a2</a> <br>
+        <a href="#">a3</a> <br>
+        <a href="#">a4</a> <br>
+        <button>加载更多...</button>
+    </div>
+
+</body>
+<script>
+    // 事件代理是基于事件冒泡机制实现的
+    // 应用场景： 无限加载需要监听 挂载到父元素上
+
+    // 通用的绑定函数
+    function bindEvent(elem, type, fn) {
+        elem.addEventListener(type, fn)
+    }
+
+    const div1 = document.getElementById('div1')
+    bindEvent(div1, 'click', event => {
+        event.preventDefault()
+        const target = event.target
+        if (target.nodeName === 'A') {
+            alert(target.innerHTML)
+        } else {
+            console.log('button')
+        }
+    })
+
+
+
+
+
+
+
+
+
+</script>
+
+</html>
