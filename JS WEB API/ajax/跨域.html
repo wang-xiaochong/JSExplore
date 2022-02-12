@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>跨域</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 同源策略 ajax请求时 浏览器要求当前网页和server必须同源(安全)
+    // 同源：协议、域名、端口 三者一致
+    // img link script.src 无视同源策略
+    // 跨域需要server端允许和配合
+
+    // 跨域：JSONP CORS
+
+    // JSONP：
+    // 原理 利用script标签 来无视浏览器的同源策略
+    // <script src="跨域请求地址?参数=参数值&callback=返回后执行的函数名用于接收数据">
+    window.callback = function (data) {
+        console.log(data)
+    }
+
+    // CORS:
+    // 后端设置可请求url的来源 请求头 以及携带的cookie token等参数
+</script>
+<!-- JSONP调用 -->
+<script src="http://localhost:7788/data.js"></script>
+
+</html>
