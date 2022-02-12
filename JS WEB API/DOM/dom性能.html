@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM性能</title>
+</head>
+
+<body>
+    <style>
+        .container {
+            border: 1px solid #ccc;
+        }
+
+        .red {
+            color: red;
+        }
+    </style>
+    <div id="div1" class="container">
+        <p id="p1">一段文字1</p>
+        <p>一段文字2</p>
+        <p>一段文字3</p>
+    </div>
+    <div id="div2">
+        <img src="../../images/03.jpg" alt="加载失败">
+    </div>
+    <ul id="ulList">
+
+    </ul>
+
+
+</body>
+<script>
+
+
+    // 1.dom查询做缓存
+
+    // 不缓存 DOM 查询结果
+    // for (let i = 0; i < document.getElementsByTagName('p').length; i++) {
+    //     // 每次循环都会计算 length ，频繁对DOM进行查询
+    // }
+
+    // 缓存 DOM 查询结果
+    // const pList = document.getElementsByTagName('p')
+    // const length = pList.length
+    // for (let i = 0; i < length; i++) {
+    //     // 缓存 length，只进行一次 DOM 查询
+    // }
+
+
+    // 2.频繁操作改为一次性操作
+
+    // 频繁操作：
+    // const ulListNode = document.getElementById('ulList')
+    // for(let i = 0;i<10;i++){
+    //     let li = document.createElement('li')
+    //     li.innerHTML = `ulList item ${i}`
+    //     ulListNode.appendChild(li)
+    // }
+
+    // 一次性操作：
+    // const ulListNode = document.getElementById('ulList')
+    // //创建一个文档片段，此时没有插入到 DOM 树中， JS 内存中进行操作
+    // const frag = document.createDocumentFragment()
+    //  for(let i = 0;i<10;i++){
+    //     let li = document.createElement('li')
+    //     li.innerHTML = `ulList item ${i}`
+    //     // 只是对js变量进行的操作 临时区域
+    //     frag.appendChild(li)
+    // }
+    // // 都完成后，再插入到 DOM 树中
+    // ulListNode.appendChild(frag)
+
+
+    
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+</html>
