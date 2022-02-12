@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>通用监听事件</title>
+</head>
+
+<body>
+
+    <style>
+        #div1 {
+            border: 1px solid wheat;
+        }
+    </style>
+
+    <button id="btn1">button1</button>
+
+    <div id="div1">
+        <a href="#">a1</a> <br>
+        <a href="#">a2</a> <br>
+        <a href="#">a3</a> <br>
+        <a href="#">a4</a> <br>
+        <button>加载更多...</button>
+    </div>
+
+</body>
+<script>
+
+    // 事件代理是基于事件冒泡机制实现的
+    // 应用场景： 无限加载需要监听 挂载到父元素上
+
+    // 通用的绑定函数简单封装
+    // function bindEvent(elem, type, fn) {
+    //     elem.addEventListener(type, fn)
+    // }
+
+    // const btn1 = document.getElementById('btn1')
+    // bindEvent(btn1, 'click', fn => {
+    //     console.log('button1 clicked')
+    // })
+
+    // const div1 = document.getElementById('div1')
+    // bindEvent(div1, 'click', event => {
+    //     event.preventDefault()
+    //     const target = event.target
+    //     if (target.nodeName === 'A') {
+    //         alert(target.innerHTML)
+    //     } else {
+    //         // alert(target.innerHTML)
+    //         console.log('button')
+    //     }
+    // })
+
+
+
+    // !!!!!!!
+    // 事件代理 
+    // 获取触发元素：event.target
+    // 判断是否为触发元素：matches
+    // let target = <a>a</a> 
+    // target.matches('a')
+
+
+
+
+    // 通用的绑定函数代理简单封装
+    function bindEvent(elem, type, selector, fn) {
+        if (fn == null) {
+            fn = selector
+            selector = null
+        }
+        elem.addEventListener(type, event => {
+            const target = event.target
+
+            if (selector) {
+                // 代理绑定
+                if (target.matches(selector)) {
+                    // 由具体被代理的触发的事件处理
+                    fn.call(target, event)
+                } else {
+                    // 由不是被代理的触发的事件处理
+                    alert('从父元素中没被指定代理的内容')
+                }
+
+            } else {
+                // 普通绑定
+                fn.call()
+            }
+
+        })
+    }
+
+    const btn1 = document.getElementById('btn1')
+
+    bindEvent(btn1, 'click', function (fn) {
+        console.log('button1 clicked')
+    })
+
+    const div1 = document.getElementById('div1')
+    bindEvent(div1, 'click', 'a', function (event) {
+        console.log(this)
+        event.preventDefault()
+        // const target = event.target
+        alert(this.innerHTML)
+    })
+
+
+
+
+</script>
+
+</html>
