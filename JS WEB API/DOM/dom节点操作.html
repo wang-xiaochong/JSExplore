@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dom节点操作</title>
+</head>
+
+<body>
+
+    <style>
+        .container{
+            border: 1px solid #ccc;
+        }
+        .red{
+            color: red;
+        }
+    </style>
+    <div id="div1" class="container">
+        <p>一段文字1</p>
+        <p>一段文字2</p>
+        <p>一段文字3</p>
+    </div>
+    <div id="div2">
+        <img src="../../images/03.jpg" alt="加载失败">
+    </div>
+
+</body>
+<script>
+    // console.log("dom")
+    // dom操作 1.获取节点 2.修改属性
+
+
+    // const div1 = document.getElementById('div1')
+    // console.log('div1:',div1)
+
+    // const divList = document.getElementsByTagName('div')
+    // console.log('divList.length:',divList.length)
+    // console.log('divList[0]:',divList[0])
+
+    // const containerList = document.getElementsByClassName('container')
+    // console.log(containerList)
+
+    // css选择器
+    // const pList = document.querySelectorAll('p')
+    // console.log(pList)
+
+
+    const pList = document.querySelectorAll('p')
+    const p1 = pList[0]
+
+    // property修改属性 js对象属性的形式操作dom节点     修改对象属性，不会体现到html结构中
+    // p1.style.width = '100px'
+    // console.log(p1.style.width)
+    // p1.className = 'red'
+    // console.log(p1.className)
+    // console.log(p1.nodeName)
+    // console.log(p1.nodeType)
+
+
+    // attribute  get、set的API修改属性 可以作用到dom结构中  修改html属性会改变html结构
+    p1.setAttribute('data-name','imooc')
+    console.log(p1.getAttribute('data-name'))
+    p1.setAttribute('style','font-size:50px')
+
+    // 两者都有可能引起DOM重新渲染 耗费性能
+
+
+</script>
+
+</html>
