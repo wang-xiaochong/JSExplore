@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件监听</title>
+</head>
+
+<body>
+    <style>
+        #div1{
+            border: 1px solid wheat;
+        }
+        #div2{
+            border: 1px solid wheat;
+        }
+    </style>
+    <button id="btn1">btn1</button>
+    <div id="div1">
+        <p id="p1">激活</p>
+        <p id="p2">取消</p>
+        <p id="p3">取消</p>
+    </div>
+    <div id="div2">
+        <p id="p4">取消</p>
+        <p id="p5">取消</p>
+    </div>
+
+</body>
+<script>
+    const btn1 = document.getElementById('btn1')
+
+    // 简单绑定
+    // btn1.addEventListener('click',event=>{
+    //     console.log('btn1 clicked')
+    // })
+
+
+    // 通用的绑定函数
+    function bindEvent(elem, type, fn) {
+        elem.addEventListener(type, fn)
+    }
+    bindEvent(btn1, 'click', fn => {
+        console.log(fn.target) //获取触发的因素
+        fn.preventDefault() // 阻止默认行为 链接跳转
+        alert('btn1')
+    })
+
+    // 事件是冒泡的 依次向上 查到最后
+    const p1 = document.getElementById('p1')
+    const body = document.body
+    bindEvent(p1,'click',event=>{
+        event.stopPropagation()     //阻止冒泡 
+        console.log('激活')
+    })
+    bindEvent(body,'click',event=>{
+        console.log('取消')
+    })
+
+
+
+
+
+</script>
+
+</html>
