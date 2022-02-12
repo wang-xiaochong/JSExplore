@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>this补充</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // console.log(this)        //全局对象
+
+    let name = "main.name"
+    let age = 21
+    function fn(age) {
+        // console.log(this)    //this指向函数外部的fn对象，并不是全局对象 
+        this.name = name        //name赋值是因为fn找不到name，就会向上查找
+        this.age = age          //age赋值是传递的参数
+        let sex = "male"        //并没有挂载到fn这个对象上，所以外部访问不到 闭包
+    }
+
+    fn.prototype = {            //fn的原型 函数存在位置
+        print: function () {
+            console.log(this)   //this指向这个函数的所属者 fn对象
+            return "fn.print()" //返回字符串
+        },
+
+    }
+    let f1 = new fn()           //实例化fn的一个对象
+    console.log(f1.print())     //打印结果
+
+
+    // 总结：函数中的this会向上找到这个函数的归属者 一个对象
+
+
+
+</script>
+
+</html>
