@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 分号间隔 一次赋值一个 相同键值内容覆盖并排在后面
+    document.cookie = "a = 100;"
+
+    // 本身是用来连接浏览器和服务端通讯的 顺便做了本地存储
+    /* cookie 存在的问题：
+            1. 存储大小 最大4kb
+            2. http请求时发送到服务端，增加请求数据
+            3.只能用document.cookie=‘’来修改 太过简陋
+
+    */
+
+</script>
+
+</html>
