@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>delete</title>
+</head>
+
+<body>
+
+
+</body>
+
+<!-- 简介：删除对象的属性 -->
+<script>
+    // 用法：delete expression // expression
+    // 返回值：严格模式下，如果属性是一个不可配置的属性，删除是会抛出异常的，非严格模式下返回false，其他情况下返回true
+
+    // 作用：
+    // 1.删除隐式全局变量
+    // x = 10;
+    // var y = 20;
+    // console.log(delete x) //true
+    // console.log(delete y) //false
+
+    // 2.内置对象的内置属性不能删除，用户自定义的属性可以被删除
+    // obj = {
+    //     h:10
+    // }
+    // var obj1 = {
+    //     h:10
+    // }
+    // console.log(delete Math.PI) // false
+    // console.log(delete obj.h) //true
+    // console.log(delete obj) //true
+    // console.log(delete obj1.h) //true
+    // console.log(delete obj1) //false
+
+    // function fn(){
+    //     var z = 10
+    //     console.log(delete z) // false
+    // }
+    // fn()
+    // console.log(delete fn) // false
+
+    // 3.不能删除一个对象从原型继承而来的属性，但是可以在原型上进行删除
+    // function foo(){
+    //     this.name = 'lisi'
+    // }
+    // foo.prototype.name = 'zhagnsan'
+
+    // // foo.prototype.print = function() {
+    // //     // prototype中的this指向的是foo这个对象
+    // //     console.log(this)
+    // // }
+    // var f = new foo()
+    // // f.print()
+    // console.log(delete f.name) //true 但是f的原型属性中的name依然没有删除
+    // console.log(f.name) // 删除了f.name,然后找不到后会去他的原型中查找
+    // // 实例化的对象中无法删除继承过来的属性，原型中进行删除
+    // console.log(delete foo.prototype.name) //true
+    // console.log(f.name) //undefined
+
+    // 4.删除数组元素 不会改变数组的长度
+    // var arr = [1,3,4,6,73,2]
+    // // console.log(delete arr[2]) //true
+    // // console.log(arr[2]) //undefined
+    // // console.log(arr) // [1,3,,6,73,2]
+    // // 在forEach循环中删除元素，不会影响结果
+    // arr.forEach(function(val,index){
+    //     // 如果之前删除过，则坐标不会再进入
+    //     // console.log(index)
+    //     if(val<4) delete arr[index]
+    // })
+    // console.log(arr)
+    // // 过滤空值
+    // console.log(arr.filter(function(val){return val}))
+
+    // arr.splice 删除元素后 后面的会依次向前移动位置 漏删
+    // arr.forEach(function (val, index) {
+    //     if (val < 4) {
+    //         arr.splice(index, 1);
+    //     }
+    // })
+    // console.log(arr)
+
+</script>
+
+</html>
